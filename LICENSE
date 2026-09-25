@@ -1,0 +1,37 @@
+This repository contains three kinds of material, under three licences.
+
+TEXT — the explanatory text and captions shown in the model (stage cards, captions,
+legends, labels)
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+https://creativecommons.org/licenses/by/4.0/
+You may share and adapt it for any purpose, provided you give appropriate credit.
+Please cite Krueger & Clevers, Genes & Development (2026) and the archived release
+(see CITATION.cff).
+
+CODE — index.html, source/app.js, source/sim.js, source/shell.html, source/build.py
+MIT Licence
+
+Copyright (c) 2026 Daniel Krueger and Hans Clevers
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+THIRD-PARTY — source/three.min.js (three.js r158), also bundled inside index.html
+MIT Licence
+Copyright 2010-2023 Three.js Authors
+https://github.com/mrdoob/three.js/blob/dev/LICENSE
+The MIT permission notice above applies to three.js with this copyright line.

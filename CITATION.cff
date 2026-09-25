@@ -1,0 +1,59 @@
+cff-version: 1.2.0
+title: "From Crypt Base to Villus Tip: an interactive 3D model of an intestinal epithelial cell's journey"
+message: >-
+  If you use this model, please cite both the archived software record
+  and the associated review.
+type: software
+abstract: >-
+  An interactive three-dimensional model that follows one intestinal epithelial
+  cell from the stem-cell niche at the crypt base to its extrusion at the villus
+  tip, showing the changes in cell shape, force and signalling along the
+  crypt-villus axis. A cut-away overview of a villus and its crypts is paired
+  with a close-up section of the followed cell and its neighbours, and colour
+  modes show actomyosin, traction, Wnt/BMP, EphB/ephrin-B, enterocyte zones,
+  migration speed and Confetti lineage tracing. Statements are tagged by their
+  evidence (tissue, organoid, preprint, or the review's own model). A schematic
+  teaching model that runs offline in any browser.
+keywords:
+  - intestine
+  - crypt-villus axis
+  - intestinal stem cells
+  - cell extrusion
+  - epithelial mechanics
+  - cell migration
+  - lineage tracing
+  - interactive model
+license:
+  - MIT
+  - CC-BY-4.0
+repository-code: "https://github.com/REPLACE-ME/From-Crypt-Base-to-Villus-Tip-3D-Model"
+url: "https://REPLACE-ME.github.io/From-Crypt-Base-to-Villus-Tip-3D-Model/"
+version: "1.0.0"
+date-released: "2026-09-25"
+
+authors:
+  - given-names: Daniel
+    family-names: Krueger
+    affiliation: "Hubrecht Institute, Oncode Institute, Royal Netherlands Academy of Arts and Sciences and University Medical Center, Utrecht, the Netherlands"
+  - given-names: Hans
+    family-names: Clevers
+    affiliation: "Hubrecht Institute, Oncode Institute, Royal Netherlands Academy of Arts and Sciences and University Medical Center, Utrecht, the Netherlands"
+
+contact:
+  - given-names: Daniel
+    family-names: Krueger
+    affiliation: "Hubrecht Institute, Utrecht, the Netherlands"
+
+preferred-citation:
+  type: article
+  title: >-
+    From Crypt Base to Villus Tip: Coordinating Cell Production and Removal in
+    the Intestine
+  authors:
+    - given-names: Daniel
+      family-names: Krueger
+    - given-names: Hans
+      family-names: Clevers
+  year: 2026
+  journal: "Genes & Development"
+  doi: "REPLACE-ME"
