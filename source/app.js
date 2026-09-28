@@ -11,9 +11,9 @@ const DT = SIM.P.DT;
 
 // ---------------------------------------------------------------- palette (from the styled review figures)
 const COL = {
-  stem: '#F2C94C', paneth: '#3FB09A', ta: '#E97BAA', diff: '#F6B8C6', hinge: '#C5E29A', eec: '#8FD6C4',
-  traction: '#5B2A86', tension: '#D3246A', flow: '#B89AD1', tracked: '#B39BE0', neutral: '#ECE5F0',
-  wnt: '#E3A92E', bmp: '#4A90D9', apical: '#5C7FD0', core: '#F3D3DC', stroma: '#CFC2DD'
+  stem: '#F2C94C', paneth: '#3FB09A', ta: '#7F9BE0', diff: '#BFD3F0', hinge: '#C5E29A', eec: '#8FD6C4',
+  traction: '#2E3F8F', tension: '#E0524F', flow: '#9DB4E0', tracked: '#A88BE8', neutral: '#E8EEF6',
+  wnt: '#E3A92E', bmp: '#3B7DD8', apical: '#4A6FC8', core: '#DCE7F5', stroma: '#C9D3E4'
 };
 const col = h => new T.Color(h);
 const C_ = Object.fromEntries(Object.entries(COL).map(([k, v]) => [k, col(v)]));
@@ -23,10 +23,10 @@ const STAGES = [
   { id: 'niche', s0: 0.00, s1: 0.12, name: 'Stem cell niche', chip: COL.stem },
   { id: 'ta',    s0: 0.12, s1: 0.32, name: 'Transit-amplifying', chip: COL.ta },
   { id: 'hinge', s0: 0.32, s1: 0.42, name: 'Crypt mouth', chip: COL.hinge },
-  { id: 'lower', s0: 0.42, s1: 0.60, name: 'Lower villus', chip: '#F9CBD5' },
+  { id: 'lower', s0: 0.42, s1: 0.60, name: 'Lower villus', chip: '#D2E0F5' },
   { id: 'upper', s0: 0.60, s1: 0.80, name: 'Upper villus', chip: COL.diff },
-  { id: 'tip',   s0: 0.80, s1: 0.94, name: 'Villus tip', chip: '#D9C7F0' },
-  { id: 'lumen', s0: 0.94, s1: 1.00, name: 'Lumen', chip: '#E6DDF4' }
+  { id: 'tip',   s0: 0.80, s1: 0.94, name: 'Villus tip', chip: '#CFC4F2' },
+  { id: 'lumen', s0: 0.94, s1: 1.00, name: 'Lumen', chip: '#E3E0F5' }
 ];
 const stageAt = s => STAGES.find(st => s < st.s1) || STAGES[STAGES.length - 1];
 
@@ -247,9 +247,9 @@ const scene = new T.Scene();
 scene.scale.x = -1;                 // mirrored: the followed cell moves from its crypt on the left to the villus on the right
 const MIR = v => { v.x = -v.x; return v; };   // model -> world
 const camera = new T.PerspectiveCamera(36, 1, 0.05, 200);
-scene.add(new T.HemisphereLight(0xffffff, 0xe2d8ea, 1.45));
+scene.add(new T.HemisphereLight(0xffffff, 0xdbe3ef, 1.45));
 const dl = new T.DirectionalLight(0xffffff, 0.75); dl.position.set(3, 8, 9); scene.add(dl);
-const dl2 = new T.DirectionalLight(0xf2e6ff, 0.35); dl2.position.set(-6, 2, -4); scene.add(dl2);
+const dl2 = new T.DirectionalLight(0xe6eeff, 0.35); dl2.position.set(-6, 2, -4); scene.add(dl2);
 const CLIP = new T.Plane(new T.Vector3(0, 0, -1), 0);
 let cutaway = true;
 const clipped = [], capMeshes = [];
@@ -261,7 +261,7 @@ function clipMat(m) { clipped.push(m); return m; }
   const cyl = new T.Mesh(new T.CylinderGeometry(G.R * 0.99, G.R * 0.99, G.H, 48, 1, true), m); cyl.position.y = G.H / 2; scene.add(cyl);
   const cp = new T.Mesh(new T.SphereGeometry(G.R * 0.99, 48, 16, 0, Math.PI * 2, 0, Math.PI / 2), m); cp.position.y = G.H; scene.add(cp);
   const sh = new T.Shape(); sh.moveTo(-G.R, 0); sh.lineTo(-G.R, G.H); sh.absarc(0, G.H, G.R, Math.PI, 0, true); sh.lineTo(G.R, 0); sh.closePath();
-  const cap = new T.Mesh(new T.ShapeGeometry(sh, 24), new T.MeshBasicMaterial({ color: '#F1CBD6', transparent: true, opacity: 0.32, depthWrite: false, side: T.DoubleSide }));
+  const cap = new T.Mesh(new T.ShapeGeometry(sh, 24), new T.MeshBasicMaterial({ color: '#D5E1F3', transparent: true, opacity: 0.32, depthWrite: false, side: T.DoubleSide }));
   cap.position.z = -0.002; scene.add(cap); capMeshes.push(cap);
 }
 // stroma block with a cut face; crypt basement membranes
@@ -276,7 +276,7 @@ function clipMat(m) { clipped.push(m); return m; }
   });
   const cap = new T.Mesh(new T.ShapeGeometry(sh, 24), new T.MeshBasicMaterial({ color: '#D8CDE4', transparent: true, opacity: 0.35, depthWrite: false, side: T.DoubleSide }));
   cap.position.z = -0.002; scene.add(cap); capMeshes.push(cap);
-  const bm = clipMat(new T.MeshStandardMaterial({ color: '#E4C4D4', transparent: true, opacity: 0.22, side: T.DoubleSide, depthWrite: false }));
+  const bm = clipMat(new T.MeshStandardMaterial({ color: '#CBD8EC', transparent: true, opacity: 0.22, side: T.DoubleSide, depthWrite: false }));
   CRYPTS.forEach(C => {
     const w = new T.Mesh(new T.CylinderGeometry(G.RC, G.RC, G.D - G.RC, 32, 1, true), bm); w.position.set(C.x, -(G.D - G.RC) / 2, C.z); scene.add(w);
     const b = new T.Mesh(new T.SphereGeometry(G.RC, 32, 12, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2), bm); b.position.set(C.x, G.Y0, C.z); scene.add(b);
@@ -285,7 +285,7 @@ function clipMat(m) { clipped.push(m); return m; }
 // the surface epithelium as a closed slab: an outer edge and a basal side, so nothing shows beneath its rim at low angles
 // (openings: the villus base and the six crypt necks)
 {
-  const m = clipMat(new T.MeshStandardMaterial({ color: '#D3BFD0', roughness: 0.85, side: T.DoubleSide }));
+  const m = clipMat(new T.MeshStandardMaterial({ color: '#C4CFE0', roughness: 0.85, side: T.DoubleSide }));
   const rim = new T.Mesh(new T.CylinderGeometry(3.0, 3.0, G.HS + 0.006, 96, 1, true), m); rim.position.y = (G.HS - 0.006) / 2; scene.add(rim);
   const sh = new T.Shape(); sh.absarc(0, 0, 3.0, 0, Math.PI * 2, false);
   const hole = (x, y, r) => { const p = new T.Path(); p.absarc(x, y, r, 0, Math.PI * 2, true); sh.holes.push(p); };
@@ -344,7 +344,7 @@ const BL = [0, 1, 2].map(() => [0, 0, 0]), BR = [0, 1, 2].map(() => [0, 0, 0]), 
 const off = (dst, s, i, ni, k) => { dst[0] = s[i] + s[ni] * k; dst[1] = s[i + 1] + s[ni + 1] * k; dst[2] = s[i + 2] + s[ni + 2] * k; };
 
 let colourMode = 'id';
-const LAMC = col('#B03A78'), cTmp = new T.Color(), cA = new T.Color(), cB = new T.Color(), cC = new T.Color(), WHITE = col('#FFFFFF'), FLASH = col('#E8F06A'), PULLC = col('#7A55C0'), CHROM = col('#6A3F7E');
+const LAMC = col('#C8464A'), cTmp = new T.Color(), cA = new T.Color(), cB = new T.Color(), cC = new T.Color(), WHITE = col('#FFFFFF'), FLASH = col('#E8F06A'), PULLC = col('#7A55C0'), CHROM = col('#6A3F7E');
 const pulse = (c, t) => { const x = Math.sin(2 * Math.PI * t / c.per + c.ph); return x > 0 ? x * x : 0; };
 function baseMyo(ch, l) {
   if (ch.crypt && l < ch.lCE) return 0.1;
@@ -901,7 +901,7 @@ function buildTissue() {
 
 // extruded cells, from the look-ahead event log
 const BALLN = 240;
-const balls = new T.InstancedMesh(new T.SphereGeometry(1, 14, 10), new T.MeshStandardMaterial({ color: '#E5C9D6', roughness: 0.6 }), BALLN);
+const balls = new T.InstancedMesh(new T.SphereGeometry(1, 14, 10), new T.MeshStandardMaterial({ color: '#CFD9EA', roughness: 0.6 }), BALLN);
 balls.frustumCulled = false; scene.add(balls);
 const trkBall = new T.Mesh(new T.SphereGeometry(1, 24, 16), new T.MeshStandardMaterial({ color: COL.tracked, roughness: 0.5, emissive: '#6B4FA0', emissiveIntensity: 0.25 }));
 scene.add(trkBall);
@@ -1052,7 +1052,7 @@ const cr = new T.WebGLRenderer({ canvas: ccan, antialias: true, alpha: true });
 cr.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
 const cs = new T.Scene();
 const ccam = new T.PerspectiveCamera(30, 1, 0.1, 100);
-cs.add(new T.HemisphereLight(0xffffff, 0xe6ddee, 1.5));
+cs.add(new T.HemisphereLight(0xffffff, 0xdfe7f2, 1.5));
 const cdl = new T.DirectionalLight(0xffffff, 0.8); cdl.position.set(3, 6, 8); cs.add(cdl);
 const corbit = Orbit(ccam, ccan, new T.Vector3(0, 1.0, -0.8), { r: 14.5, th: 0.34, ph: 1.36, min: 6, max: 30 });
 
@@ -1343,7 +1343,7 @@ function buildCloseup(J, tt) {
     if (!ga) { bmMesh.geometry.setAttribute('position', new T.BufferAttribute(new Float32Array(pos), 3)); bmMesh.frustumCulled = false; }
     else { ga.array.set(pos); ga.needsUpdate = true; }
     bmMesh.geometry.computeVertexNormals();
-    bmMesh.material.color.set('#B7A8CC').lerp(col('#8E7AB5'), P.lamz);
+    bmMesh.material.color.set('#AEB9D2').lerp(col('#7A8BC0'), P.lamz);
   }
   const zF1 = ZD / 2, zF0 = -ZD / 2, V = (p, z = zF1 + 0.02) => new T.Vector3(p[0], p[1], z);
   for (let rr = 1; rr < ROWS; rr++) {
@@ -1469,7 +1469,7 @@ function buildCloseup(J, tt) {
       // two daughters side by side: each reaches back to the base; the sister is the left one
       const g = smooth(0.05, 1.3, dA), sis = [[xc0, 0], U.C[4], ...U.C.slice(5), ...U.L].map(([a, b]) => PF(a, b));
       const mm = cellPool.get(), csis = prismGeo(mm, sis, zF0, zF1);
-      const base = new T.Color(neighbourColor(s, CI - 1, 0, true)); if (colourMode === 'id') base.lerp(col('#D8CCEE'), 1 - smooth(0.9, 1.35, dA));
+      const base = new T.Color(neighbourColor(s, CI - 1, 0, true)); if (colourMode === 'id') base.lerp(col('#D6D8F0'), 1 - smooth(0.9, 1.35, dA));
       mm.material.color.copy(base); mm.material.emissive.set('#000'); mm.material.emissiveIntensity = 0; mm.material.opacity = 1;
       for (let q2 = 0; q2 < sis.length; q2++) cl(V(sis[q2], zF1 + 0.012), V(sis[(q2 + 1) % sis.length], zF1 + 0.012));
       const dx = lerp(0.3 * Rb, 0.5 * W, g), ny_ = lerp(yc, 0.3 * h, g);
@@ -1570,8 +1570,8 @@ function buildCloseup(J, tt) {
     if (Lm < 0.05 || !centres[i] || (e > 0.3 && Math.abs(i - CI) <= 1)) continue;
     const xb = XB[i + 1], pts = [[xb - 0.1, 0.01], [xb + Lm, 0.02], [xb + Lm * 0.72, 0.08], [xb + Lm * 0.3, 0.155], [xb - 0.1, 0.23]].map(([a, b]) => PF(a, b));
     const mm = cellPool.get(); prismGeo(mm, pts, zF1 - 0.12, zF1 + 0.05); CLT('la');
-    mm.material.color.set('#B03A78'); mm.material.opacity = 1; mm.material.emissive.set('#5A0F35'); mm.material.emissiveIntensity = 0.25;
-    for (let q2 = 0; q2 < 3; q2++) seg(V(pts[q2 + 1], zF1 + 0.06), V(pts[q2 + 1 === 3 ? 3 : q2 + 2], zF1 + 0.06), 0.018, '#F2B8D4', 0.9);
+    mm.material.color.set('#C8464A'); mm.material.opacity = 1; mm.material.emissive.set('#5A1A1C'); mm.material.emissiveIntensity = 0.25;
+    for (let q2 = 0; q2 < 3; q2++) seg(V(pts[q2 + 1], zF1 + 0.06), V(pts[q2 + 1 === 3 ? 3 : q2 + 2], zF1 + 0.06), 0.018, '#F5C7C8', 0.9);
   }
   // the neighbours' lamellipodia crawling beneath the departing cell
   if (X && e > 0.3) {
@@ -1580,7 +1580,7 @@ function buildCloseup(J, tt) {
       const x = X.x0 + sg * X.hb, Lm = 0.47 * g;
       const pts = [[x + sg * 0.1, 0.0], [x - sg * Lm, 0.03], [x - sg * Lm * 0.6, 0.1], [x + sg * 0.1, 0.2]].map(([a, b]) => PF(a, b));
       const mm = cellPool.get(); prismGeo(mm, pts, zF1 - 0.12, zF1 + 0.05);
-      mm.material.color.set('#B03A78'); mm.material.opacity = 1; mm.material.emissive.set('#5A0F35'); mm.material.emissiveIntensity = 0.25;
+      mm.material.color.set('#C8464A'); mm.material.opacity = 1; mm.material.emissive.set('#5A1A1C'); mm.material.emissiveIntensity = 0.25;
     });
   }
   // pushed by divisions upstream: until 1:00, a freshly divided pair behind the followed cell widens and pushes every cell
@@ -1714,14 +1714,14 @@ function drawLegend() {
     + `<span><svg width="16" height="8"><path d="M0 3h9v2H0z M8 0l8 4-8 4z" fill="${COL.traction}"/></svg>traction</span>`
     + `<span><svg width="12" height="10"><path d="M12 5 L0 0 L0 10z" fill="#7A55C0"/></svg>pulled up after an extrusion</span>`
     + `<span><svg width="12" height="10"><path d="M12 5 L0 0 L0 10z" fill="#4F7BD8"/></svg>pushed by a division</span>`
-    + `<span><svg width="16" height="8"><path d="M0 8 L16 6 L0 1z" fill="#B03A78"/></svg>cryptic lamellipodia</span>`
-    + `<span><svg width="10" height="10"><circle cx="5" cy="5" r="4.5" fill="#E5C9D6"/></svg>extruded cell</span></div>`;
+    + `<span><svg width="16" height="8"><path d="M0 8 L16 6 L0 1z" fill="#C8464A"/></svg>cryptic lamellipodia</span>`
+    + `<span><svg width="10" height="10"><circle cx="5" cy="5" r="4.5" fill="#CFD9EA"/></svg>extruded cell</span></div>`;
   let body = '';
   if (colourMode === 'id') body = `<div class="row"><span>${sw(COL.stem)}Stem</span><span>${sw(COL.paneth)}Paneth</span><span>${sw(COL.ta)}Transit-amplifying</span><span>${sw(COL.hinge)}Hinge</span><span>${sw(COL.diff)}Differentiated</span><span>${sw(COL.tracked)}Followed cell</span></div>`;
   if (colourMode === 'am') body = `<div class="row">apical ${ramp(COL.apical, COL.neutral, COL.tension)} basal</div><div class="note">Apical in the crypt (Sumigray 2018; Hartl 2019); basal on the villus, pulsing and rising toward the tip (Krueger 2025). Flashes near the tip are neighbours after an extrusion.</div>`;
   if (colourMode === 'tr') body = `<div class="row">toward base ${ramp(COL.apical, COL.neutral, COL.traction)} toward tip</div><div class="note">Traction is the force the cells exert on the matrix. The crypt base pushes into it; along the crypt wall it points toward the base, strongest near the TA zone; at the crypt mouth and villus base it points outward, where cells are dragged toward the villus (organoids, Pérez-González 2021); on the upper villus it points back toward the base, as for cells crawling on their basal protrusions (inferred, Pérez-González 2022). Not measured in tissue.</div>`;
   if (colourMode === 'sig') body = `<div class="row">Wnt / R-spondin ${ramp(COL.wnt, COL.neutral, COL.bmp)} BMP</div><div class="note">Opposed gradients; transition in the transit-amplifying zone</div>`;
-  if (colourMode === 'v') body = `<div class="row">slow ${ramp('#EFE8F4', COL.traction)} fast</div><div class="note">Speed of each cell in this model. Streaks running down from the tip are cells pulled up after an extrusion.</div>`;
+  if (colourMode === 'v') body = `<div class="row">slow ${ramp('#EAEFF7', COL.traction)} fast</div><div class="note">Speed of each cell in this model. Streaks running down from the tip are cells pulled up after an extrusion.</div>`;
   if (colourMode === 'ephb2') body = `<div class="row">EphB2 low ${ramp('#F6F3F8', '#2F6FD0')} high</div>${ephChart()}<div class="note">Receptor, a Wnt target: through the proliferative compartment, peaking at positions 4–6 and falling toward the crypt top; crypt base columnar cells positive, Paneth cells negative (Batlle 2002).</div>`;
   if (colourMode === 'ephb3') body = `<div class="row">EphB3 low ${ramp('#F6F3F8', '#1B2F7A')} high</div>${ephChart()}<div class="note">Receptor on the cells below position +4: the Paneth cells and the crypt base columnar cells between them. Without EphB3, Paneth cells scatter along crypt and villus (Batlle 2002).</div>`;
   if (colourMode === 'efnb') body = `<div class="row">ephrin-B low ${ramp('#F6F3F8', '#E0701C')} high</div>${ephChart()}<div class="note">Ligands ephrin-B1 and -B2: highest at the crypt–villus junction, decreasing toward the crypt base; little expressed from the first third of the villus on (Batlle 2002).</div>`;
@@ -1777,8 +1777,8 @@ function renderCard(st) {
 }
 const GAUGES = [
   ['wnt', 'Wnt / R-spondin', COL.wnt], ['bmp', 'BMP', COL.bmp], ['ephB', 'EphB2 / EphB3', '#7F9BD6'], ['eprB', 'ephrin-B', '#9FB8E6'],
-  ['apM', 'Apical actomyosin', COL.apical], ['baM', 'Basal myosin II', COL.tension], ['tens', 'Intercellular tension', '#E0588E'],
-  ['trac', 'Traction  base ↔ tip', COL.traction], ['lam', 'Cryptic lamellipodia', '#C45A8C'], ['ecad', 'E-cadherin', '#6FAE8A'], ['adh', 'Integrin–matrix adhesion', '#8E7AB5']
+  ['apM', 'Apical actomyosin', COL.apical], ['baM', 'Basal myosin II', COL.tension], ['tens', 'Intercellular tension', '#E8746F'],
+  ['trac', 'Traction  base ↔ tip', COL.traction], ['lam', 'Cryptic lamellipodia', '#C8464A'], ['ecad', 'E-cadherin', '#6FAE8A'], ['adh', 'Integrin–matrix adhesion', '#8E7AB5']
 ];
 (() => {
   let h = `<h3 style="margin-top:0">State of the followed cell</h3>`;
@@ -1811,9 +1811,9 @@ function drawBars(s) {
   if (h !== barsH) {
     barsH = h;
     const bars = [
-      ['Proliferation', '#C0457F', x => bump(-0.02, 0.36, x)],
-      ['Pushed by division', '#C0457F', x => 1 - smooth(0.05, 0.62, x)],
-      ['Active migration', '#C0457F', x => smooth(0.36, 0.86, x)],
+      ['Proliferation', '#4C63B6', x => bump(-0.02, 0.36, x)],
+      ['Pushed by division', '#4C63B6', x => 1 - smooth(0.05, 0.62, x)],
+      ['Active migration', '#4C63B6', x => smooth(0.36, 0.86, x)],
       ['Wnt, R-spondin', COL.bmp, x => 1 - smooth(0.0, 0.34, x)],
       ['BMP', COL.bmp, x => smooth(0.26, 0.9, x)]
     ];
@@ -1825,8 +1825,8 @@ function drawBars(s) {
       out += `<polygon points="${Lp.concat(Rp).join(' ')}" fill="${c}" opacity="0.85"/>`;
       out += `<text x="${cx}" y="${bot + 8}" transform="rotate(-90 ${cx} ${bot + 8})" text-anchor="end" font-size="10.5" font-weight="700" fill="${c}" dy="4">${name}</text>`;
     });
-    out += `<line id="bLine" x1="4" x2="${14 + bars.length * (bw + 10)}" stroke="#5B2A86" stroke-width="1.3" stroke-dasharray="3 2"/>`;
-    out += `<circle id="bDot" cx="6" r="5" fill="${COL.tracked}" stroke="#5B2A86"/><text x="4" y="${top - 6}" font-size="10" fill="#8C8398">tip</text>`;
+    out += `<line id="bLine" x1="4" x2="${14 + bars.length * (bw + 10)}" stroke="#2E3F8F" stroke-width="1.3" stroke-dasharray="3 2"/>`;
+    out += `<circle id="bDot" cx="6" r="5" fill="${COL.tracked}" stroke="#2E3F8F"/><text x="4" y="${top - 6}" font-size="10" fill="#8C8398">tip</text>`;
     svg.innerHTML = out;
   }
   const y = Ly(Math.min(s, 0.94));
