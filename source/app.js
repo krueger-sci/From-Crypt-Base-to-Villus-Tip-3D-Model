@@ -11,9 +11,9 @@ const DT = SIM.P.DT;
 
 // ---------------------------------------------------------------- palette (from the styled review figures)
 const COL = {
-  stem: '#F2C94C', paneth: '#3FB09A', ta: '#7F9BE0', diff: '#BFD3F0', hinge: '#C5E29A', eec: '#8FD6C4',
-  traction: '#2E3F8F', tension: '#E0524F', flow: '#9DB4E0', tracked: '#A88BE8', neutral: '#E8EEF6',
-  wnt: '#E3A92E', bmp: '#3B7DD8', apical: '#4A6FC8', core: '#DCE7F5', stroma: '#C9D3E4'
+  stem: '#F4C84D', paneth: '#4EB9A9', ta: '#EE79AD', diff: '#F5BCC3', hinge: '#C9E39A', eec: '#8FD6C4',
+  traction: '#5B2A86', tension: '#D3246A', flow: '#B79CC7', tracked: '#A88BE8', neutral: '#ECE8EE',
+  wnt: '#E3A92E', bmp: '#4A90D9', apical: '#5C7FD0', core: '#E2E0E3', stroma: '#CDCDD1'
 };
 const col = h => new T.Color(h);
 const C_ = Object.fromEntries(Object.entries(COL).map(([k, v]) => [k, col(v)]));
@@ -23,10 +23,10 @@ const STAGES = [
   { id: 'niche', s0: 0.00, s1: 0.12, name: 'Stem cell niche', chip: COL.stem },
   { id: 'ta',    s0: 0.12, s1: 0.32, name: 'Transit-amplifying', chip: COL.ta },
   { id: 'hinge', s0: 0.32, s1: 0.42, name: 'Crypt mouth', chip: COL.hinge },
-  { id: 'lower', s0: 0.42, s1: 0.60, name: 'Lower villus', chip: '#D2E0F5' },
+  { id: 'lower', s0: 0.42, s1: 0.60, name: 'Lower villus', chip: '#F9CBD5' },
   { id: 'upper', s0: 0.60, s1: 0.80, name: 'Upper villus', chip: COL.diff },
-  { id: 'tip',   s0: 0.80, s1: 0.94, name: 'Villus tip', chip: '#CFC4F2' },
-  { id: 'lumen', s0: 0.94, s1: 1.00, name: 'Lumen', chip: '#E3E0F5' }
+  { id: 'tip',   s0: 0.80, s1: 0.94, name: 'Villus tip', chip: '#D9C7F0' },
+  { id: 'lumen', s0: 0.94, s1: 1.00, name: 'Lumen', chip: '#E6DDF4' }
 ];
 const stageAt = s => STAGES.find(st => s < st.s1) || STAGES[STAGES.length - 1];
 
@@ -92,7 +92,7 @@ const CARDS = {
     Forces: [`Traction reverses from inward to outward ${r('Pérez-González 2021')}${tg.o}`,
              `Actomyosin moves from the apical to the basal side; what induces this switch is unknown`],
     Signals: [`Crosses the EphB / ephrin-B boundary: EphB activation drives ADAM10 to shed E-cadherin at the interface, so the two populations adhere differently ${r('Batlle 2002; Solanas 2011')}; the ADAM10 mechanism was shown in cultured cells, in vivo it positions Paneth cells`,
-              `New substrate: in human small intestine laminin α2 lines the crypt ${r('Beaulieu & Vachon 1994')}, α3 and α5 the villus, and α1 is absent from the adult ${r('Teller 2007')}; mouse crypts carry α1 and α2 ${r('Simon-Assmann 1994')}`,
+              `New substrate: in human small intestine laminin α2 lines the crypt ${r('Beaulieu & Vachon 1994')}, α3 and α5 the villus, and α1 is absent from the adult ${r('Teller 2007')}; mouse crypts carry α1 and α2 ${r('Simon-Assmann 1994')}. The integrins that bind them are zonated as well: α2 in the lower crypt, α3 from the upper crypt onto the villus, with β1 and α6 at the base of all enterocytes ${r('Beaulieu 1992')}`,
               `The basement membrane does not move with the cells; it turns over in place ${r('Trier 1990')}`],
     Notes: [`In engineered organoids, the imposed initial geometry controls patterning ${r('Gjorevski 2022')}${tg.o}`],
     open: 'Does differentiation rewire cell mechanics here, or does the change in substrate, geometry and neighbours do it?'
@@ -100,7 +100,7 @@ const CARDS = {
   lower: {
     where: 'Villus base to mid-shaft · columnar enterocyte',
     Shape: [`Tall columnar enterocyte`,
-            `Cryptic lamellipodia at the basal surface point toward the tip; their front–back orientation and villus migration depend on Arp2/3 ${r('Krndija 2019')}${tg.t}`,
+            `Cryptic lamellipodia at the basal surface point toward the tip and depend on Arp2/3; inhibiting Arp2/3 with CK-666 reduces migration along the villus ${r('Krndija 2019')}${tg.t}`,
             `A radial actin star at the cell base links to the neighbours' stars through bicellular junctions ${r('Barai 2025')}`],
     Forces: [`≈ 3–4.5 µm/h in explants ${r('Krndija 2019')}`,
              `Push and pull overlap: high-dose hydroxyurea slows migration only here; CK-666 slows it less here than higher up ${r('Krndija 2019')}`,
@@ -108,9 +108,9 @@ const CARDS = {
              `In organoids on synthetic villi basal myosin II pulses; when one cell constricts its base, its neighbours expand ${r('Krueger 2025')}${tg.o}. Where along the axis the pulses start is not known`,
              `The villus is under tension: basal cuts recoil at shaft and tip ${r('Krueger 2025')}; apical-junction cuts recoil in the lower and upper villus, faster lower down ${r('Krndija 2019')}${tg.t}`],
     Signals: [`BMP rising; enterocyte programs are zonated along the axis ${r('Moor 2018')}`,
-              `Planar cell polarity aligns basal protrusions and polarises basement-membrane integrins, giving coherent streams ("villus ribbons"), shown during postnatal development ${r('Lee 2025')}${tg.p}`],
+              `Planar cell polarity aligns basal protrusions and polarises basement-membrane integrins, giving coherent streams ("villus ribbons"), fully resolved by postnatal day 20 ${r('Lee 2026')}${tg.t}`],
     open: 'What orients migration: the tension gradient, BMP, matrix composition, planar cell polarity, or a combination?',
-    hl: `From here on, each cell crawls toward the tip on its own actin-rich basal protrusions, the cryptic lamellipodia, oriented by Arp2/3. In the lower villus this active migration overlaps with the push from division; in the upper villus it dominates ${r('Krndija 2019')}`
+    hl: `From here on, each cell crawls toward the tip on its own actin-rich basal protrusions, the cryptic lamellipodia, which depend on Arp2/3. In the lower villus this active migration overlaps with the push from division; in the upper villus it dominates ${r('Krndija 2019')}`
   },
   upper: {
     where: 'Upper shaft · active migration',
@@ -133,7 +133,7 @@ const CARDS = {
              `Myosin II rises in the extruding cell and in its neighbours around the time of extrusion ${r('Krueger 2025')}${tg.o}`,
              `Demand: the neighbours that close the gap are stretched and pull the cells behind them up; the flow fills the vacancy ${tg.x}`],
     Signals: [`BMP2 from tip mesenchyme acts on adhesion through its target genes ${r('Berková 2023')}; PIEZO1 is present in extruding tip cells ${r('Baghdadi 2024')}`],
-    Notes: [`In human sections most shedding events sit at the tip ${r('Bullen 2006')}; after LPS, shedding occurs along the axis and rises toward the tip ${r('Williams 2013')}. Here weak cells leave from anywhere in the tip zone, most often near the apex but not only there ${tg.x}`,
+    Notes: [`In the mouse, shedding events occur along the entire axis and their frequency rises toward the tip ${r('Williams 2013')}; in fixed human tissue the great majority sit at the tip ${r('Bullen 2006')}. Here weak cells leave from anywhere in the tip zone, most often near the apex but not only there ${tg.x}`,
             `≈ 92% of extrusions in the villus-like domain of organoids are non-apoptotic ${r('Krueger 2025')}${tg.o}; caspase-3/7 are dispensable for shedding ${r('Ghazavi 2022')}`,
             `In organoids, cells extrude from regions of average or low density, which is not crowding ${r('Krueger 2025')}${tg.o}`],
     open: 'What fixes the position of removal? Competition explains which cell leaves, not why removal is enriched at the tip.'
@@ -143,7 +143,7 @@ const CARDS = {
     Notes: [`The vacancy is filled by the sheet moving up; each cell ends one position closer to the tip, and division in the crypt supplies the replacement ${tg.x}`,
             `Shed cells stay viable for hours and switch on antimicrobial programs before dying by anoikis ${r('Bahar Halpern 2023')}`,
             `They carry a villus-tip transcriptional signature ${r('Bahar Halpern 2023; Barkai 2025')}`,
-            `Local density recovers within ≈ 45 min ${r('Krueger 2025')}${tg.o}; each mouse villus loses ≈ 1400 enterocytes a day ${r('Potten & Loeffler 1990')}`],
+            `Local density recovers within ≈ 45 min ${r('Krueger 2025')}${tg.o}`],
     open: 'Does removal follow production, or production follow removal? Neither rate has been changed alone while the other was measured.'
   }
 };
@@ -165,8 +165,8 @@ function captionFor(s, J) {
     case 'ta': return s < 0.27 ? ['Pushed up by division', 'tension falls to its minimum at the outer TA border']
                                : ['Traction fades at the TA border', 'net traction ≈ 0 here in organoids; the cells are still pushed by division'];
     case 'hinge': return ['Hinge: wide apex, constricted base', 'traction reverses · actomyosin moves apical → basal · EphB/ephrin-B boundary'];
-    case 'lower': return ['<span class="pill">Active migration</span>Crawling on cryptic lamellipodia', 'each cell pulls itself toward the tip on actin-rich basal protrusions oriented by Arp2/3; the push from division overlaps here'];
-    case 'upper': return ['<span class="pill">Active migration</span>Tug-of-war along the villus base', 'active crawling now dominates · basal myosin pulses (seen in organoids) · cells accelerate'];
+    case 'lower': return ['<span class="pill">Active migration</span>Crawling on cryptic lamellipodia', 'each cell pulls itself toward the tip on Arp2/3-dependent, actin-rich basal protrusions; the push from division overlaps here'];
+    case 'upper': return ['<span class="pill">Active migration</span>Tug-of-war along the villus domain', 'active crawling now dominates · basal myosin pulses (seen in organoids) · cells accelerate'];
     case 'tip':
       if (s < 0.84) return ['Tug-of-war in the tip zone', 'weak cells leave from anywhere in the zone; the followed cell holds the least basal myosin, and its neighbours’ pulses pull its base wider'];
       if (e < 0.15) return ['Ca²⁺ pulse in the departing cell', 'organoid data (Matejčić 2025, preprint)'];
@@ -201,21 +201,18 @@ function lookahead(budget) {
   }
 }
 // when do labelled cells first leave the crypt, reach the villus, and reach the tip? (model hours after labelling)
-const CONF_MS = { exit: null, villus: null, tip: null };
+// Model clock in hours: 1 model second = 45 min, which puts the followed clone at the crypt mouth, the mid villus and the
+// tip close to the times of Fig. 3A of the review (~32 h, ~65 h, ~92 h after the division; inferred from Parker 2017).
+const H_PER_S = 0.75;
+const CONF_MS = { birth: null, mouth: null, mid: null, tip: null };
 function confMilestones(S) {
   if (CONF_MS.tip !== null) return;
-  const hrs = S.mt - S.mt0;
-  for (let i = 0; i < CHAINS.length; i++) {
-    const ch = CHAINS[i]; if (!ch.crypt) continue;
-    const cs = S.ch[i].cells;
-    for (let k = cs.length - 1; k >= 0; k--) {
-      const c = cs[k]; if (!c.lab) continue;
-      if (c.l > ch.lCE && CONF_MS.exit === null) CONF_MS.exit = hrs;
-      if (ch.kind === 'in' && c.l >= ch.lV0 && CONF_MS.villus === null) CONF_MS.villus = hrs;
-      if (ch.kind === 'in' && c.l >= ch.lTZ && CONF_MS.tip === null) { CONF_MS.tip = hrs; if (colourMode === 'conf') drawLegend(); }
-      break;
-    }
-  }
+  const J = S.trk, ch = CHAINS[J.ch];
+  if (CONF_MS.birth === null) { if (J.phase !== 'niche') CONF_MS.birth = J.splitM; return; }
+  const c = SIM.trackedCell(S), hrs = (S.mt - CONF_MS.birth) * H_PER_S;
+  if (c && CONF_MS.mouth === null && c.l >= ch.lCE) CONF_MS.mouth = hrs;
+  if (c && CONF_MS.mid === null && c.l >= ch.lV0 + 0.5 * (ch.lTip0 - ch.lV0)) CONF_MS.mid = hrs;
+  if (J.gone) { CONF_MS.tip = hrs; if (colourMode === 'conf') drawLegend(); }
 }
 const computedT = () => asDone ? T_END : AS ? Math.max(0, AS.t - T0 - DT) : 0;
 function goTo(target) {
@@ -247,9 +244,9 @@ const scene = new T.Scene();
 scene.scale.x = -1;                 // mirrored: the followed cell moves from its crypt on the left to the villus on the right
 const MIR = v => { v.x = -v.x; return v; };   // model -> world
 const camera = new T.PerspectiveCamera(36, 1, 0.05, 200);
-scene.add(new T.HemisphereLight(0xffffff, 0xdbe3ef, 1.45));
+scene.add(new T.HemisphereLight(0xffffff, 0xe2e0e4, 1.45));
 const dl = new T.DirectionalLight(0xffffff, 0.75); dl.position.set(3, 8, 9); scene.add(dl);
-const dl2 = new T.DirectionalLight(0xe6eeff, 0.35); dl2.position.set(-6, 2, -4); scene.add(dl2);
+const dl2 = new T.DirectionalLight(0xf2e6ff, 0.35); dl2.position.set(-6, 2, -4); scene.add(dl2);
 const CLIP = new T.Plane(new T.Vector3(0, 0, -1), 0);
 let cutaway = true;
 const clipped = [], capMeshes = [];
@@ -257,26 +254,26 @@ function clipMat(m) { clipped.push(m); return m; }
 
 // villus core (lamina propria), translucent so the pulsing cell bases show through the cut
 {
-  const m = clipMat(new T.MeshStandardMaterial({ color: COL.core, roughness: 0.9, transparent: true, opacity: 0.38, side: T.DoubleSide, depthWrite: false }));
+  const m = clipMat(new T.MeshStandardMaterial({ color: COL.core, roughness: 0.9, transparent: true, opacity: 0.84, side: T.DoubleSide, depthWrite: false }));
   const cyl = new T.Mesh(new T.CylinderGeometry(G.R * 0.99, G.R * 0.99, G.H, 48, 1, true), m); cyl.position.y = G.H / 2; scene.add(cyl);
   const cp = new T.Mesh(new T.SphereGeometry(G.R * 0.99, 48, 16, 0, Math.PI * 2, 0, Math.PI / 2), m); cp.position.y = G.H; scene.add(cp);
   const sh = new T.Shape(); sh.moveTo(-G.R, 0); sh.lineTo(-G.R, G.H); sh.absarc(0, G.H, G.R, Math.PI, 0, true); sh.lineTo(G.R, 0); sh.closePath();
-  const cap = new T.Mesh(new T.ShapeGeometry(sh, 24), new T.MeshBasicMaterial({ color: '#D5E1F3', transparent: true, opacity: 0.32, depthWrite: false, side: T.DoubleSide }));
+  const cap = new T.Mesh(new T.ShapeGeometry(sh, 24), new T.MeshBasicMaterial({ color: '#DEDCDF', transparent: true, opacity: 0.32, depthWrite: false, side: T.DoubleSide }));
   cap.position.z = -0.002; scene.add(cap); capMeshes.push(cap);
 }
 // stroma block with a cut face; crypt basement membranes
 {
   const m = clipMat(new T.MeshStandardMaterial({ color: COL.stroma, transparent: true, opacity: 0.16, side: T.DoubleSide, depthWrite: false }));
   const stm = new T.Mesh(new T.CylinderGeometry(3.0, 3.0, 2.75, 64, 1, true), m); stm.position.y = -1.375; scene.add(stm);
-  const fl = new T.Mesh(new T.CircleGeometry(3.0, 64), clipMat(new T.MeshStandardMaterial({ color: '#C9BCD8', transparent: true, opacity: 0.3, depthWrite: false, side: T.DoubleSide })));
+  const fl = new T.Mesh(new T.CircleGeometry(3.0, 64), clipMat(new T.MeshStandardMaterial({ color: '#C6C6CB', transparent: true, opacity: 0.3, depthWrite: false, side: T.DoubleSide })));
   fl.rotation.x = -Math.PI / 2; fl.position.y = -2.75; scene.add(fl);
   const sh = new T.Shape(); sh.moveTo(-3, -2.75); sh.lineTo(3, -2.75); sh.lineTo(3, 0); sh.lineTo(-3, 0); sh.closePath();
   [CRYPTS[0], CRYPTS[3]].forEach(C => {
     const hp = new T.Path(); hp.moveTo(C.x - G.RC, 0); hp.lineTo(C.x - G.RC, G.Y0); hp.absarc(C.x, G.Y0, G.RC, Math.PI, 0, false); hp.lineTo(C.x + G.RC, 0); hp.closePath(); sh.holes.push(hp);
   });
-  const cap = new T.Mesh(new T.ShapeGeometry(sh, 24), new T.MeshBasicMaterial({ color: '#D8CDE4', transparent: true, opacity: 0.35, depthWrite: false, side: T.DoubleSide }));
+  const cap = new T.Mesh(new T.ShapeGeometry(sh, 24), new T.MeshBasicMaterial({ color: '#D9D9DD', transparent: true, opacity: 0.35, depthWrite: false, side: T.DoubleSide }));
   cap.position.z = -0.002; scene.add(cap); capMeshes.push(cap);
-  const bm = clipMat(new T.MeshStandardMaterial({ color: '#CBD8EC', transparent: true, opacity: 0.22, side: T.DoubleSide, depthWrite: false }));
+  const bm = clipMat(new T.MeshStandardMaterial({ color: '#C9C3D6', transparent: true, opacity: 0.22, side: T.DoubleSide, depthWrite: false }));
   CRYPTS.forEach(C => {
     const w = new T.Mesh(new T.CylinderGeometry(G.RC, G.RC, G.D - G.RC, 32, 1, true), bm); w.position.set(C.x, -(G.D - G.RC) / 2, C.z); scene.add(w);
     const b = new T.Mesh(new T.SphereGeometry(G.RC, 32, 12, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2), bm); b.position.set(C.x, G.Y0, C.z); scene.add(b);
@@ -285,7 +282,7 @@ function clipMat(m) { clipped.push(m); return m; }
 // the surface epithelium as a closed slab: an outer edge and a basal side, so nothing shows beneath its rim at low angles
 // (openings: the villus base and the six crypt necks)
 {
-  const m = clipMat(new T.MeshStandardMaterial({ color: '#C4CFE0', roughness: 0.85, side: T.DoubleSide }));
+  const m = clipMat(new T.MeshStandardMaterial({ color: '#D3BFD0', roughness: 0.85, side: T.DoubleSide }));
   const rim = new T.Mesh(new T.CylinderGeometry(3.0, 3.0, G.HS + 0.006, 96, 1, true), m); rim.position.y = (G.HS - 0.006) / 2; scene.add(rim);
   const sh = new T.Shape(); sh.absarc(0, 0, 3.0, 0, Math.PI * 2, false);
   const hole = (x, y, r) => { const p = new T.Path(); p.absarc(x, y, r, 0, Math.PI * 2, true); sh.holes.push(p); };
@@ -344,7 +341,7 @@ const BL = [0, 1, 2].map(() => [0, 0, 0]), BR = [0, 1, 2].map(() => [0, 0, 0]), 
 const off = (dst, s, i, ni, k) => { dst[0] = s[i] + s[ni] * k; dst[1] = s[i + 1] + s[ni + 1] * k; dst[2] = s[i + 2] + s[ni + 2] * k; };
 
 let colourMode = 'id';
-const LAMC = col('#C8464A'), cTmp = new T.Color(), cA = new T.Color(), cB = new T.Color(), cC = new T.Color(), WHITE = col('#FFFFFF'), FLASH = col('#E8F06A'), PULLC = col('#7A55C0'), CHROM = col('#6A3F7E');
+const LAMC = col('#B03A78'), cTmp = new T.Color(), cA = new T.Color(), cB = new T.Color(), cC = new T.Color(), WHITE = col('#FFFFFF'), FLASH = col('#E8F06A'), PULLC = col('#7A55C0'), CHROM = col('#6A3F7E');
 const pulse = (c, t) => { const x = Math.sin(2 * Math.PI * t / c.per + c.ph); return x > 0 ? x * x : 0; };
 function baseMyo(ch, l) {
   if (ch.crypt && l < ch.lCE) return 0.1;
@@ -376,9 +373,7 @@ function modeColourAt(a, o, out) {
   switch (colourMode) {
     case 'am': if (a < 0.31) return out.copy(C_.neutral).lerp(C_.apical, 0.85 * (1 - a / 0.31) + 0.1);
                return out.copy(C_.neutral).lerp(C_.tension, clamp(0.1 + 0.75 * o.m));
-    case 'tr': if (a < 0.24) return out.copy(C_.neutral).lerp(C_.apical, 0.9 * (1 - a / 0.24) + 0.1);
-               if (a < 0.31) return out.copy(C_.neutral);
-               return out.copy(C_.neutral).lerp(C_.traction, 0.25 + 0.7 * smooth(0.31, 1, a));
+    case 'tr': { const tv = params(sOfA(a)).trac; return out.copy(C_.neutral).lerp(tv < 0 ? C_.apical : C_.traction, clamp(0.1 + 0.9 * Math.abs(tv))); }
     case 'sig': return out.copy(C_.neutral).lerp(C_.wnt, (1 - smooth(0, 0.34, a)) * 0.9).lerp(C_.bmp, smooth(0.26, 1, a) * 0.85);
     case 'eph': return ephColour(a, o.type, out);
     case 'ephb2': case 'ephb3': case 'efnb': return ephComponent(a, o.type, out);
@@ -388,12 +383,12 @@ function modeColourAt(a, o, out) {
     default: return out.copy(o.idc);
   }
 }
-function tractionAt(ch, l) {
-  const a = axial(ch, l);
-  if (a < 0.3) return a < 0.06 ? -1 : -1 + smooth(0.06, 0.29, a);
-  if (a < 0.36) return 0.35;
-  return 0.5 + 0.5 * smooth(0.36, 1, a);
-}
+// Traction on the matrix along the path (+ = toward the tip), the same profile as in the close-up (KEYS), as in Fig. 5 of
+// the review: toward the crypt base along the crypt wall, reversed at the crypt mouth and the villus base, and back toward
+// the base under the crawling cells of the villus shaft. The crypt bottom pushes into the matrix (see pushAt).
+const sOfA = a => a < 0.3 ? a * 0.32 / 0.3 : a < 0.36 ? 0.32 + (a - 0.3) / 0.06 * 0.1 : 0.42 + (a - 0.36) / 0.64 * 0.4;
+function tractionAt(ch, l) { return params(sOfA(axial(ch, l))).trac; }
+function pushAt(ch, l) { const sc = sOfA(axial(ch, l)); return sc < 0.12 ? 1 - sc / 0.12 : 0; }
 
 // ---- colour modes for signalling and maturation
 // Eph/ephrin (Batlle 2002, adult jejunum): EphB3 below position +4 (Paneth cells and the crypt base columnar cells); EphB2 through the proliferative
@@ -877,8 +872,12 @@ function buildTissue() {
               [x2 + ux * Lw * 0.5 + nx * Hw * 0.55, y2 + uy * Lw * 0.5 + ny * Hw * 0.55], [x2 - ux * 0.03 + nx * Hw, y2 - uy * 0.03 + ny * Hw], LAMC);
         aZ = 0.004;
       }
-      const tr = tractionAt(ch, (la0 + la1) / 2), bx = B[1][0] - nx * 0.05, by = B[1][1] - ny * 0.05;
-      if (Math.abs(tr) < 0.1) aQuad([bx - 0.012, by - 0.012], [bx + 0.012, by - 0.012], [bx + 0.012, by + 0.012], [bx - 0.012, by + 0.012], C_.traction);
+      const tr = tractionAt(ch, (la0 + la1) / 2), bx = B[1][0] - nx * 0.05, by = B[1][1] - ny * 0.05, psh = pushAt(ch, (la0 + la1) / 2);
+      if (psh > 0.2) {                     // crypt bottom: the cells push into the matrix
+        const L = 0.05 + 0.06 * psh, px = -nx, py = -ny, qx = ux, qy = uy, ox = bx + nx * 0.03, oy = by + ny * 0.03;
+        aQuad([ox - qx * 0.006, oy - qy * 0.006], [ox + qx * 0.006, oy + qy * 0.006], [ox + qx * 0.006 + px * L * 0.6, oy + qy * 0.006 + py * L * 0.6], [ox - qx * 0.006 + px * L * 0.6, oy - qy * 0.006 + py * L * 0.6], C_.traction);
+        aTri(ox + px * L, oy + py * L, ox + px * L * 0.55 - qx * 0.022, oy + py * L * 0.55 - qy * 0.022, ox + px * L * 0.55 + qx * 0.022, oy + py * L * 0.55 + qy * 0.022, C_.traction);
+      } else if (Math.abs(tr) < 0.1) aQuad([bx - 0.012, by - 0.012], [bx + 0.012, by - 0.012], [bx + 0.012, by + 0.012], [bx - 0.012, by + 0.012], C_.traction);
       else {
         const L = 0.04 + 0.06 * Math.abs(tr), sx = ux * Math.sign(tr), sy = uy * Math.sign(tr);
         aQuad([bx - sx * L / 2 - nx * 0.006, by - sy * L / 2 - ny * 0.006], [bx + sx * L * 0.1 - nx * 0.006, by + sy * L * 0.1 - ny * 0.006],
@@ -901,7 +900,7 @@ function buildTissue() {
 
 // extruded cells, from the look-ahead event log
 const BALLN = 240;
-const balls = new T.InstancedMesh(new T.SphereGeometry(1, 14, 10), new T.MeshStandardMaterial({ color: '#CFD9EA', roughness: 0.6 }), BALLN);
+const balls = new T.InstancedMesh(new T.SphereGeometry(1, 14, 10), new T.MeshStandardMaterial({ color: '#C9C2E4', roughness: 0.6 }), BALLN);
 balls.frustumCulled = false; scene.add(balls);
 const trkBall = new T.Mesh(new T.SphereGeometry(1, 24, 16), new T.MeshStandardMaterial({ color: COL.tracked, roughness: 0.5, emissive: '#6B4FA0', emissiveIntensity: 0.25 }));
 scene.add(trkBall);
@@ -1052,7 +1051,7 @@ const cr = new T.WebGLRenderer({ canvas: ccan, antialias: true, alpha: true });
 cr.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
 const cs = new T.Scene();
 const ccam = new T.PerspectiveCamera(30, 1, 0.1, 100);
-cs.add(new T.HemisphereLight(0xffffff, 0xdfe7f2, 1.5));
+cs.add(new T.HemisphereLight(0xffffff, 0xe6e3e8, 1.5));
 const cdl = new T.DirectionalLight(0xffffff, 0.8); cdl.position.set(3, 6, 8); cs.add(cdl);
 const corbit = Orbit(ccam, ccan, new T.Vector3(0, 1.0, -0.8), { r: 14.5, th: 0.34, ph: 1.36, min: 6, max: 30 });
 
@@ -1343,7 +1342,7 @@ function buildCloseup(J, tt) {
     if (!ga) { bmMesh.geometry.setAttribute('position', new T.BufferAttribute(new Float32Array(pos), 3)); bmMesh.frustumCulled = false; }
     else { ga.array.set(pos); ga.needsUpdate = true; }
     bmMesh.geometry.computeVertexNormals();
-    bmMesh.material.color.set('#AEB9D2').lerp(col('#7A8BC0'), P.lamz);
+    bmMesh.material.color.set('#A99BC8').lerp(col('#6FAE9F'), P.lamz);
   }
   const zF1 = ZD / 2, zF0 = -ZD / 2, V = (p, z = zF1 + 0.02) => new T.Vector3(p[0], p[1], z);
   for (let rr = 1; rr < ROWS; rr++) {
@@ -1469,7 +1468,7 @@ function buildCloseup(J, tt) {
       // two daughters side by side: each reaches back to the base; the sister is the left one
       const g = smooth(0.05, 1.3, dA), sis = [[xc0, 0], U.C[4], ...U.C.slice(5), ...U.L].map(([a, b]) => PF(a, b));
       const mm = cellPool.get(), csis = prismGeo(mm, sis, zF0, zF1);
-      const base = new T.Color(neighbourColor(s, CI - 1, 0, true)); if (colourMode === 'id') base.lerp(col('#D6D8F0'), 1 - smooth(0.9, 1.35, dA));
+      const base = new T.Color(neighbourColor(s, CI - 1, 0, true)); if (colourMode === 'id') base.lerp(col('#D8CCEE'), 1 - smooth(0.9, 1.35, dA));
       mm.material.color.copy(base); mm.material.emissive.set('#000'); mm.material.emissiveIntensity = 0; mm.material.opacity = 1;
       for (let q2 = 0; q2 < sis.length; q2++) cl(V(sis[q2], zF1 + 0.012), V(sis[(q2 + 1) % sis.length], zF1 + 0.012));
       const dx = lerp(0.3 * Rb, 0.5 * W, g), ny_ = lerp(yc, 0.3 * h, g);
@@ -1570,8 +1569,8 @@ function buildCloseup(J, tt) {
     if (Lm < 0.05 || !centres[i] || (e > 0.3 && Math.abs(i - CI) <= 1)) continue;
     const xb = XB[i + 1], pts = [[xb - 0.1, 0.01], [xb + Lm, 0.02], [xb + Lm * 0.72, 0.08], [xb + Lm * 0.3, 0.155], [xb - 0.1, 0.23]].map(([a, b]) => PF(a, b));
     const mm = cellPool.get(); prismGeo(mm, pts, zF1 - 0.12, zF1 + 0.05); CLT('la');
-    mm.material.color.set('#C8464A'); mm.material.opacity = 1; mm.material.emissive.set('#5A1A1C'); mm.material.emissiveIntensity = 0.25;
-    for (let q2 = 0; q2 < 3; q2++) seg(V(pts[q2 + 1], zF1 + 0.06), V(pts[q2 + 1 === 3 ? 3 : q2 + 2], zF1 + 0.06), 0.018, '#F5C7C8', 0.9);
+    mm.material.color.set('#B03A78'); mm.material.opacity = 1; mm.material.emissive.set('#5A0F35'); mm.material.emissiveIntensity = 0.25;
+    for (let q2 = 0; q2 < 3; q2++) seg(V(pts[q2 + 1], zF1 + 0.06), V(pts[q2 + 1 === 3 ? 3 : q2 + 2], zF1 + 0.06), 0.018, '#F2B8D4', 0.9);
   }
   // the neighbours' lamellipodia crawling beneath the departing cell
   if (X && e > 0.3) {
@@ -1580,7 +1579,7 @@ function buildCloseup(J, tt) {
       const x = X.x0 + sg * X.hb, Lm = 0.47 * g;
       const pts = [[x + sg * 0.1, 0.0], [x - sg * Lm, 0.03], [x - sg * Lm * 0.6, 0.1], [x + sg * 0.1, 0.2]].map(([a, b]) => PF(a, b));
       const mm = cellPool.get(); prismGeo(mm, pts, zF1 - 0.12, zF1 + 0.05);
-      mm.material.color.set('#C8464A'); mm.material.opacity = 1; mm.material.emissive.set('#5A1A1C'); mm.material.emissiveIntensity = 0.25;
+      mm.material.color.set('#B03A78'); mm.material.opacity = 1; mm.material.emissive.set('#5A0F35'); mm.material.emissiveIntensity = 0.25;
     });
   }
   // pushed by divisions upstream: until 1:00, a freshly divided pair behind the followed cell widens and pushes every cell
@@ -1714,24 +1713,24 @@ function drawLegend() {
     + `<span><svg width="16" height="8"><path d="M0 3h9v2H0z M8 0l8 4-8 4z" fill="${COL.traction}"/></svg>traction</span>`
     + `<span><svg width="12" height="10"><path d="M12 5 L0 0 L0 10z" fill="#7A55C0"/></svg>pulled up after an extrusion</span>`
     + `<span><svg width="12" height="10"><path d="M12 5 L0 0 L0 10z" fill="#4F7BD8"/></svg>pushed by a division</span>`
-    + `<span><svg width="16" height="8"><path d="M0 8 L16 6 L0 1z" fill="#C8464A"/></svg>cryptic lamellipodia</span>`
-    + `<span><svg width="10" height="10"><circle cx="5" cy="5" r="4.5" fill="#CFD9EA"/></svg>extruded cell</span></div>`;
+    + `<span><svg width="16" height="8"><path d="M0 8 L16 6 L0 1z" fill="#B03A78"/></svg>cryptic lamellipodia</span>`
+    + `<span><svg width="10" height="10"><circle cx="5" cy="5" r="4.5" fill="#C9C2E4"/></svg>extruded cell</span></div>`;
   let body = '';
   if (colourMode === 'id') body = `<div class="row"><span>${sw(COL.stem)}Stem</span><span>${sw(COL.paneth)}Paneth</span><span>${sw(COL.ta)}Transit-amplifying</span><span>${sw(COL.hinge)}Hinge</span><span>${sw(COL.diff)}Differentiated</span><span>${sw(COL.tracked)}Followed cell</span></div>`;
   if (colourMode === 'am') body = `<div class="row">apical ${ramp(COL.apical, COL.neutral, COL.tension)} basal</div><div class="note">Apical in the crypt (Sumigray 2018; Hartl 2019); basal on the villus, pulsing and rising toward the tip (Krueger 2025). Flashes near the tip are neighbours after an extrusion.</div>`;
   if (colourMode === 'tr') body = `<div class="row">toward base ${ramp(COL.apical, COL.neutral, COL.traction)} toward tip</div><div class="note">Traction is the force the cells exert on the matrix. The crypt base pushes into it; along the crypt wall it points toward the base, strongest near the TA zone; at the crypt mouth and villus base it points outward, where cells are dragged toward the villus (organoids, Pérez-González 2021); on the upper villus it points back toward the base, as for cells crawling on their basal protrusions (inferred, Pérez-González 2022). Not measured in tissue.</div>`;
   if (colourMode === 'sig') body = `<div class="row">Wnt / R-spondin ${ramp(COL.wnt, COL.neutral, COL.bmp)} BMP</div><div class="note">Opposed gradients; transition in the transit-amplifying zone</div>`;
-  if (colourMode === 'v') body = `<div class="row">slow ${ramp('#EAEFF7', COL.traction)} fast</div><div class="note">Speed of each cell in this model. Streaks running down from the tip are cells pulled up after an extrusion.</div>`;
+  if (colourMode === 'v') body = `<div class="row">slow ${ramp('#EFE8F4', COL.traction)} fast</div><div class="note">Speed of each cell in this model. Streaks running down from the tip are cells pulled up after an extrusion.</div>`;
   if (colourMode === 'ephb2') body = `<div class="row">EphB2 low ${ramp('#F6F3F8', '#2F6FD0')} high</div>${ephChart()}<div class="note">Receptor, a Wnt target: through the proliferative compartment, peaking at positions 4–6 and falling toward the crypt top; crypt base columnar cells positive, Paneth cells negative (Batlle 2002).</div>`;
   if (colourMode === 'ephb3') body = `<div class="row">EphB3 low ${ramp('#F6F3F8', '#1B2F7A')} high</div>${ephChart()}<div class="note">Receptor on the cells below position +4: the Paneth cells and the crypt base columnar cells between them. Without EphB3, Paneth cells scatter along crypt and villus (Batlle 2002).</div>`;
   if (colourMode === 'efnb') body = `<div class="row">ephrin-B low ${ramp('#F6F3F8', '#E0701C')} high</div>${ephChart()}<div class="note">Ligands ephrin-B1 and -B2: highest at the crypt–villus junction, decreasing toward the crypt base; little expressed from the first third of the villus on (Batlle 2002).</div>`;
   if (colourMode === 'eph') body = `<div class="row"><span>${sw('#1B2F7A')}EphB3</span><span>${sw('#2F6FD0')}EphB2</span><span>${sw('#EE8A2E')}ephrin-B1/B2</span><span>${sw('#9B6F8F')}co-expressed</span></div>${ephChart()}<div class="note">Adult jejunum (Batlle 2002). Where receptor- and ligand-expressing cells meet, EphB signalling drives ADAM10 to shed E-cadherin and keeps the compartments apart (Solanas 2011). Above the lower third of the villus ephrin-B1/B2 are low.</div>`;
   if (colourMode === 'conf') {
-    const d = h => h === null ? '…' : 'day ' + (h / 24).toFixed(1);
+    const d = h => h === null ? '…' : '≈ ' + Math.round(h) + ' h';
     body = `<div class="row"><span>${sw('#46C05A')}nuclear GFP</span><span>${sw('#F2CC2A')}YFP</span><span>${sw('#E2474C')}RFP</span><span>${sw('#3D8FDB')}membrane CFP</span><span>${sw('#C9C2CF')}unlabelled</span></div>`
-      + `<div style="margin:5px 0 3px;font-size:12px"><b id="confDay">day 0.0</b> after tamoxifen <span class="note" style="display:inline">(1 model second ≈ 1 h)</span></div>`
-      + `<div class="note" style="color:var(--ink2)">This model: first labelled cells leave the crypt at ${d(CONF_MS.exit)}, reach the villus at ${d(CONF_MS.villus)}, and a labelled ribbon spans crypt to tip at ${d(CONF_MS.tip)}. Every ribbon on the villus runs back into a labelled crypt: villus cells come only from crypts, and each crypt feeds the villus sector next to it. For legibility each labelled crypt has its own colour: red for the followed cell's crypt, yellow for its neighbour, and one crypt carrying two clones side by side (blue and green). In the mouse most labelled crypts carry several colours in the first weeks and drift to one (below). In the close-up only the followed cell's clone is coloured: at each division one daughter stays behind, so the cells behind it fill with label while the cells ahead, born before the label, stay grey; the followed cell is the front of its ribbon.</div>`
-      + `<div class="note">Published: labelled Lgr5 stem cells appear 24 h after induction and divide about daily; their progeny spend 2–3 days on the villus (Snippert 2010); villus transit 49–60 h (Parker 2017); the epithelium turns over in ≈ 2.8 d (Darwich 2014). Over weeks, crypts drift to a single colour (5% at 2 wk, 45% at 4 wk, 73% at 8 wk; Snippert 2010), which this model does not include. Each villus is fed by ~10–12 crypts (Cheng & Bjerknes 1985, cited in Lee 2025). In the mouse, GFP is nuclear and CFP sits in the membrane; here all four colours fill the cell.</div>`;
+      + `<div style="margin:5px 0 3px;font-size:12px"><b id="confDay">day 0.0</b> after labelling <span class="note" style="display:inline">(1 model second ≈ 45 min)</span></div>`
+      + `<div class="note" style="color:var(--ink2)">This model: the followed clone (red) reaches the crypt mouth ${d(CONF_MS.mouth)} after the stem-cell division, the mid villus ${d(CONF_MS.mid)}, and its leading cell is extruded at the tip ${d(CONF_MS.tip)}. Figure 3A of the review gives ~32 h, ~65 h and ~92 h (inferred from Parker 2017, mouse duodenum). Every ribbon on the villus runs back into a labelled crypt: villus cells come only from crypts, and each crypt feeds the villus sector next to it. For legibility each labelled crypt has its own colour: red for the followed cell's crypt, yellow for its neighbour, and one crypt carrying two clones side by side (blue and green). In the mouse most labelled crypts carry several colours in the first weeks and drift to one (below). In the close-up only the followed cell's clone is coloured: at each division one daughter stays behind, so the cells behind it fill with label while the cells ahead, born before the label, stay grey; the followed cell is the front of its ribbon.</div>`
+      + `<div class="note">Published: labelled Lgr5 stem cells appear 24 h after induction and divide about daily; their progeny spend 2–3 days on the villus (Snippert 2010); villus transit 49–60 h (Parker 2017); the epithelium turns over in ≈ 2.8 d (Darwich 2014). Over weeks, crypts drift to a single colour (5% at 2 wk, 45% at 4 wk, 73% at 8 wk; Snippert 2010), which this model does not include. Each villus is fed by ~10–12 crypts (Cheng & Bjerknes 1985, cited in Lee 2026). In the mouse, GFP is nuclear and CFP sits in the membrane; here all four colours fill the cell.</div>`;
   }
   if (colourMode === 'moor') body = `<div class="row">${MOOR.map((c, z) => `<span>${sw('#' + c.getHexString())}V${z + 1}</span>`).join('')}<span>${sw('#D8D3DE')}crypt / non-enterocyte</span></div><div class="note">Enterocyte zones from landmark genes (Moor 2018), a proxy for maturation. Here the zone is read from the cell's position; cells move through V1 → V6 as they migrate.</div>`;
   L.innerHTML = mech + body;
@@ -1777,8 +1776,8 @@ function renderCard(st) {
 }
 const GAUGES = [
   ['wnt', 'Wnt / R-spondin', COL.wnt], ['bmp', 'BMP', COL.bmp], ['ephB', 'EphB2 / EphB3', '#7F9BD6'], ['eprB', 'ephrin-B', '#9FB8E6'],
-  ['apM', 'Apical actomyosin', COL.apical], ['baM', 'Basal myosin II', COL.tension], ['tens', 'Intercellular tension', '#E8746F'],
-  ['trac', 'Traction  base ↔ tip', COL.traction], ['lam', 'Cryptic lamellipodia', '#C8464A'], ['ecad', 'E-cadherin', '#6FAE8A'], ['adh', 'Integrin–matrix adhesion', '#8E7AB5']
+  ['apM', 'Apical actomyosin', COL.apical], ['baM', 'Basal myosin II', COL.tension], ['tens', 'Intercellular tension', '#E0588E'],
+  ['trac', 'Traction  base ↔ tip', COL.traction], ['lam', 'Cryptic lamellipodia', '#C45A8C'], ['ecad', 'E-cadherin', '#6FAE8A'], ['adh', 'Integrin–matrix adhesion', '#8E7AB5']
 ];
 (() => {
   let h = `<h3 style="margin-top:0">State of the followed cell</h3>`;
@@ -1811,9 +1810,9 @@ function drawBars(s) {
   if (h !== barsH) {
     barsH = h;
     const bars = [
-      ['Proliferation', '#4C63B6', x => bump(-0.02, 0.36, x)],
-      ['Pushed by division', '#4C63B6', x => 1 - smooth(0.05, 0.62, x)],
-      ['Active migration', '#4C63B6', x => smooth(0.36, 0.86, x)],
+      ['Proliferation', '#C0457F', x => bump(-0.02, 0.36, x)],
+      ['Pushed by division', '#C0457F', x => 1 - smooth(0.05, 0.62, x)],
+      ['Active migration', '#C0457F', x => smooth(0.36, 0.86, x)],
       ['Wnt, R-spondin', COL.bmp, x => 1 - smooth(0.0, 0.34, x)],
       ['BMP', COL.bmp, x => smooth(0.26, 0.9, x)]
     ];
@@ -1825,8 +1824,8 @@ function drawBars(s) {
       out += `<polygon points="${Lp.concat(Rp).join(' ')}" fill="${c}" opacity="0.85"/>`;
       out += `<text x="${cx}" y="${bot + 8}" transform="rotate(-90 ${cx} ${bot + 8})" text-anchor="end" font-size="10.5" font-weight="700" fill="${c}" dy="4">${name}</text>`;
     });
-    out += `<line id="bLine" x1="4" x2="${14 + bars.length * (bw + 10)}" stroke="#2E3F8F" stroke-width="1.3" stroke-dasharray="3 2"/>`;
-    out += `<circle id="bDot" cx="6" r="5" fill="${COL.tracked}" stroke="#2E3F8F"/><text x="4" y="${top - 6}" font-size="10" fill="#8C8398">tip</text>`;
+    out += `<line id="bLine" x1="4" x2="${14 + bars.length * (bw + 10)}" stroke="#5B2A86" stroke-width="1.3" stroke-dasharray="3 2"/>`;
+    out += `<circle id="bDot" cx="6" r="5" fill="${COL.tracked}" stroke="#5B2A86"/><text x="4" y="${top - 6}" font-size="10" fill="#8C8398">tip</text>`;
     svg.innerHTML = out;
   }
   const y = Ly(Math.min(s, 0.94));
@@ -1931,7 +1930,7 @@ function frame(now) {
   if (capH !== lastCap) { $('caption').innerHTML = capH; lastCap = capH; }
   if ((++fno) % 3 === 0) updateGauges(J);
   updateLabels(); if (showGrad) drawBars(J.s); if (isEph(colourMode)) updateEphMark(J.s);
-  if (colourMode === 'conf') { const el = $('confDay'); if (el) { const tx = 'day ' + ((LS.mt - LS.mt0) / 24).toFixed(1); if (el.textContent !== tx) el.textContent = tx; } }
+  if (colourMode === 'conf') { const el = $('confDay'); if (el) { const tx = 'day ' + ((LS.mt - LS.mt0) * H_PER_S / 24).toFixed(1); if (el.textContent !== tx) el.textContent = tx; } }
   const tm = `${fmt(tau())} / ${fmt(T_END)}` + (reqT !== null ? ' · computing…' : asDone ? '' : ' …'); if (tm !== lastTm) { $('time').textContent = tm; lastTm = tm; }
   renderer.render(scene, camera); cr.render(cs, ccam);
   requestAnimationFrame(frame);
