@@ -9,7 +9,7 @@ tracing.
 
 **Authors:** Daniel Krueger and Hans Clevers (Hubrecht Institute, Utrecht) · Companion to
 Krueger & Clevers, *From Crypt Base to Villus Tip: Coordinating Cell Production and Removal in the
-Intestine*, Genes & Development (2026). Cite the archived release (Zenodo DOI), not the repository
+Intestinal Epithelium*, Genes & Development (2026). Cite the archived release (Zenodo DOI), not the repository
 URL — see `CITATION.cff`.
 
 ## What it is and is not
